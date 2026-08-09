@@ -20,22 +20,18 @@
             <version>3.45.1.0</version>
         </dependency>
 
-        <!-- TODO: add JUnit if the team wants unit tests -->
-        <!--
+        <!-- JUnit 5 for unit tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
-        -->
     </dependencies>
 
     <build>
         <finalName>orders-management-system</finalName>
         <plugins>
-            <!-- TODO: consider maven-shade-plugin or maven-assembly-plugin
-                 to build a runnable fat-jar that bundles sqlite-jdbc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -45,6 +41,15 @@
                             <mainClass>com.ordersystem.app.Main</mainClass>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <!-- Tests use a throwaway SQLite DB instead of the real orders.db -->
+                    <argLine>-Ddb.url=jdbc:sqlite:target/test-orders.db</argLine>
                 </configuration>
             </plugin>
         </plugins>

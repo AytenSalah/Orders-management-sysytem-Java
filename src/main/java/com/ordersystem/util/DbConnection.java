@@ -6,17 +6,15 @@ import java.sql.SQLException;
 
 /**
  * Utility class responsible for providing a JDBC Connection to the SQLite database.
- * TODO: set the DB file path (e.g. "jdbc:sqlite:orders.db")
- * TODO: implement getConnection()
- * TODO: implement initializeSchema() -> run schema.sql on first startup (AC9)
+ * The URL defaults to "jdbc:sqlite:orders.db" and can be overridden with the
+ * system property "db.url" (used by tests to point at a throwaway database).
  */
 public class DbConnection {
 
-    private static final String DB_URL = "jdbc:sqlite:orders.db"; // TODO confirm path
+    private static final String DB_URL = "jdbc:sqlite:orders.db";
 
     public static Connection getConnection() throws SQLException {
-        // TODO
-        return null;
+        return DriverManager.getConnection(System.getProperty("db.url", DB_URL));
     }
 
     public static void initializeSchema() {

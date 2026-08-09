@@ -5,7 +5,7 @@ package com.ordersystem.exception;
  */
 public class CustomerNotFoundException extends RuntimeException {
 
-    public CustomerNotFoundException(String customerId) {
+    public CustomerNotFoundException(long customerId) {
         super("Customer not found with id: " + customerId);
     }
 }
